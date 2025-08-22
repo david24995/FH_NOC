@@ -23,16 +23,21 @@ export class CheckService implements ICheckService {
         throw new Error(`Error on check service ${url}`);
       }
 
-      const newLog = new LogEntity(
-        LogServeryLevel.low,
-        `Service ${url} working`
-      );
+      const newLog = new LogEntity({
+        level: LogServeryLevel.low,
+        message: `Service ${url} working`,
+        origin: __filename,
+      });
       this.logRepository.saveLog(newLog);
       this.successCallback();
       return true;
     } catch (error) {
       const errorMessage = `${url} is not ok. ${error}`;
-      const newLog = new LogEntity(LogServeryLevel.high, errorMessage);
+      const newLog = new LogEntity({
+        level: LogServeryLevel.high,
+        message: errorMessage,
+        origin: __filename,
+      });
       this.logRepository.saveLog(newLog);
 
       this.errorCallback(errorMessage);
