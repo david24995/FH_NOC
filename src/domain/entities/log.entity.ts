@@ -14,7 +14,7 @@ export enum LogServeryLevel {
 export class LogEntity {
   public level: LogServeryLevel;
   public message: string;
-  public createdAt: Date;
+  public createdAt?: Date;
   public origin: string;
 
   constructor(options: Options) {

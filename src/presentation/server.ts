@@ -10,15 +10,11 @@ export class Server {
   public static start() {
     console.log('Server started');
 
-    const emailService = new EmailService();
-    emailService.sendEmail({
-      to: 'auditoria@jehadha.com',
-      subject: 'Logs de sistema',
-      htmlBody: `
-        <h2>Logs de Sistema - NOC</h2>
-        <p>Ver logs adjuntos</p>
-      `,
-    });
+    // const emailService = new EmailService(fileSystem);
+    // emailService.sendEmailWithFileSystemLog([
+    //   'david_cun_celima@hotmail.com',
+    //   'davidhuamaccto24995@gmail.com',
+    // ]);
 
     // const job = CronService.createJob('*/10 * * * * * ', () => {
     //   // new CheckService().execute('https://google.com');
