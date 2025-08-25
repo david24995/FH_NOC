@@ -143,3 +143,5 @@ vite.config.ts.timestamp-*
 coverage/
 .vscode/
 mongo
+postgres
+/src/generated/prisma
