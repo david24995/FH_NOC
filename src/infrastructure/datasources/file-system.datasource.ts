@@ -47,10 +47,8 @@ export class FileSystemDatasource extends LogDataSource {
   }
 
   private ReadLogFile(severityPath: string): LogEntity[] {
-    const content = JSON.parse(
-      fs.readFileSync(severityPath, { encoding: 'utf-8' })
-    );
-    const logs = content.split('\n').map(LogEntity.fromJson);
+    const content = fs.readFileSync(severityPath, { encoding: 'utf-8' });
+    const logs = content.trim().split('\n').map(LogEntity.fromJson);
     return logs;
   }
 

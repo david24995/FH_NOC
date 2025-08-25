@@ -16,6 +16,9 @@ export class CheckService implements ICheckService {
   ) {}
 
   public async execute(url: string): Promise<boolean> {
+    const fileNameParts = __filename.split('/');
+    const fileName = fileNameParts[fileNameParts.length - 1];
+
     try {
       const req = await fetch(url);
 
@@ -26,7 +29,7 @@ export class CheckService implements ICheckService {
       const newLog = new LogEntity({
         level: LogServeryLevel.low,
         message: `Service ${url} working`,
-        origin: __filename,
+        origin: String(fileName),
       });
       this.logRepository.saveLog(newLog);
       this.successCallback();
@@ -36,7 +39,7 @@ export class CheckService implements ICheckService {
       const newLog = new LogEntity({
         level: LogServeryLevel.high,
         message: errorMessage,
-        origin: __filename,
+        origin: String(fileName),
       });
       this.logRepository.saveLog(newLog);
 
