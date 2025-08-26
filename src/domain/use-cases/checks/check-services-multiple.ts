@@ -1,19 +1,23 @@
 import { LogEntity, LogServeryLevel } from '../../entities/log.entity';
 import { LogRepository } from '../../repository/log.repository';
 
-interface ICheckService {
+interface ICheckServiceMultiple {
   execute: (url: string) => Promise<boolean>;
 }
 
 type SuccessCallback = () => void;
 type ErrorCallback = (error: string) => void;
 
-export class CheckService implements ICheckService {
+export class CheckServiceMultiple implements ICheckServiceMultiple {
   constructor(
     private readonly successCallback: SuccessCallback,
     private readonly errorCallback: ErrorCallback,
-    private readonly logRepository: LogRepository
+    private readonly logRepository: LogRepository[]
   ) {}
+
+  private callLogs(logEntity: LogEntity) {
+    this.logRepository.forEach((log) => log.saveLog(logEntity));
+  }
 
   public async execute(url: string): Promise<boolean> {
     const fileNameParts = __filename.split('/');
@@ -31,7 +35,7 @@ export class CheckService implements ICheckService {
         message: `Service ${url} working`,
         origin: String(fileName),
       });
-      await this.logRepository.saveLog(newLog);
+      this.callLogs(newLog);
       this.successCallback();
       return true;
     } catch (error) {
@@ -41,7 +45,7 @@ export class CheckService implements ICheckService {
         message: errorMessage,
         origin: String(fileName),
       });
-      await this.logRepository.saveLog(newLog);
+      this.callLogs(newLog);
 
       this.errorCallback(errorMessage);
 

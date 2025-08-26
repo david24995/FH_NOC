@@ -27,5 +27,5 @@ async function main() {
   // const logs = await prisma.logModel.findMany();
   // console.log(logs);
 
-  // await Server.start();
+  await Server.start();
 }
