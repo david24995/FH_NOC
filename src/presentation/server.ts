@@ -25,17 +25,17 @@ export class Server {
     // const logs = await logRepository.getLogs(LogServeryLevel.high);
     // console.log(logs);
 
-    const job = CronService.createJob('*/10 * * * * * ', () => {
-      // new CheckService().execute('https://google.com');
-      const url = 'http://google.com';
+    // const job = CronService.createJob('*/10 * * * * * ', () => {
+    //   // new CheckService().execute('https://google.com');
+    //   const url = 'http://google.com';
 
-      // new CheckServiceMultiple(
-      new CheckService(
-        () => console.log(`${url} is working!`),
-        (err) => console.log(`${err} desde server.ts`),
-        mongoLogRepository
-        // [fsLogRepository, mongoLogRepository, postgresLogRepository]
-      ).execute(url);
-    });
+    //   new CheckServiceMultiple(
+    //     // new CheckService(
+    //     () => console.log(`${url} is working!`),
+    //     (err) => console.log(`${err} desde server.ts`),
+    //     // mongoLogRepository
+    //     [fsLogRepository, mongoLogRepository, postgresLogRepository]
+    //   ).execute(url);
+    // });
   }
 }
